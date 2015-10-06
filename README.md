@@ -60,6 +60,21 @@ The following types of data are being considered:
         LABEL io.openshift.expose-services="8080:http" \
               io.openshift.tags="builder,nodejs,nodejs010"
 
+5. Service linking labels may be used to define relationships. Namespacing may be defined for discovery.
+    * `requires`: An external dependency. Example:
+
+            requires.service.db.mysql.name="mysql"
+            requires.service.db.mysql.source="docker://centos/mysql"
+
+    * `provides`: Specifies what dependencies are satisfied. Example:
+
+            provides.service.db.mysql
+
+    * `parameters`: Replacement values for LABELs. In the following example all strings `${FOO}` in the specified LABEL value would be replaced. If no defaults then the user must provide values at runtime. Example:
+
+            io.k8s.db-service.parameter.FOO.default="bar"
+            io.k8s.db-service.parameter.FOO.description="Some foo for your bar"
+
 ## Details on Labels
 
 ## `authoritative-source-url`
